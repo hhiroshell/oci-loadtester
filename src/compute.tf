@@ -37,7 +37,7 @@ locals {
 }
 
 resource "tls_private_key" "loadtester-ssh-key-pair" {
-    algorithm   = "RSA"
+    algorithm = "RSA"
 }
 
 resource "oci_core_instance" "loadtester" {
@@ -104,6 +104,10 @@ resource "oci_core_instance" "loadtester" {
         destination = "${local.gatling-home}/endpoints.txt"
     }
 
+    /* 
+     * About kernel parameter tuning for gatling,
+     * see https://gatling.io/docs/current/general/operations/
+     */
     provisioner "remote-exec" "OS tuning - 1/2" {
         inline = [
             "sudo bash -c 'echo \"*       soft    nofile  65535\" >> /etc/security/limits.conf'",
@@ -140,9 +144,9 @@ resource "oci_core_instance" "loadtester" {
 }
 
 output "loadtester-public-ip" {
-  value = ["${oci_core_instance.loadtester.public_ip}"]
+    value = ["${oci_core_instance.loadtester.public_ip}"]
 }
 
 output "loadtester-private-key-pem" {
-  value = ["${tls_private_key.loadtester-ssh-key-pair.private_key_pem}"]
+    value = ["${tls_private_key.loadtester-ssh-key-pair.private_key_pem}"]
 }
