@@ -13,21 +13,6 @@
  */
 
 # for OCI provider
-variable "tenancy_ocid" {}
-variable "compartment_ocid" {}
-variable "region" {}
-/* 
- * These variables are vomed to variables-for-local-exec.tf
- * to exclude when create a template archive for OCI Resource Manager.
- */
-# variable "user_ocid" {}
-# variable "fingerprint" {}
-# variable "private_key_path" {}
-
-data "oci_identity_availability_domains" "ads" {
-    compartment_id = "${var.compartment_ocid}"
-}
-
-variable "core_instance_shape" {
-    default = "VM.Standard1.16"
-}
+variable "user_ocid" {}
+variable "fingerprint" {}
+variable "private_key_path" {}
